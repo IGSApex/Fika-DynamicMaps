@@ -274,15 +274,50 @@ namespace DynamicMaps.Config
 
             #region Dynamic Markers
 
-            // ShowPlayerMarker is now controlled by Fika-DynamicMaps server configuration.
+            ConfigEntries.Add(ShowPlayerMarker = config.Bind(
+                DynamicMarkerTitle,
+                "Show Player Marker",
+                true,
+                new ConfigDescription(
+                    "If the player marker should be shown in raid",
+                    null,
+                    new ConfigurationManagerAttributes { Browsable = false })));
 
-            // ShowFriendlyPlayerMarkersInRaid is now controlled by Fika-DynamicMaps server configuration.
+            ConfigEntries.Add(ShowFriendlyPlayerMarkersInRaid = config.Bind(
+                DynamicMarkerTitle,
+                "Show Friendly Player Markers",
+                true,
+                new ConfigDescription(
+                    "If friendly player markers should be shown in-raid",
+                    null,
+                    new ConfigurationManagerAttributes { Browsable = false })));
 
-            // ShowEnemyPlayerMarkersInRaid is now controlled by Fika-DynamicMaps server configuration.
+            ConfigEntries.Add(ShowEnemyPlayerMarkersInRaid = config.Bind(
+                DynamicMarkerTitle,
+                "Show Enemy Player Markers",
+                false,
+                new ConfigDescription(
+                    "If enemy player markers should be shown in-raid (generally for debug)",
+                    null,
+                    new ConfigurationManagerAttributes { Browsable = false })));
 
-            // ShowScavMarkersInRaid is now controlled by Fika-DynamicMaps server configuration.
+            ConfigEntries.Add(ShowScavMarkersInRaid = config.Bind(
+                DynamicMarkerTitle,
+                "Show Scav Markers",
+                false,
+                new ConfigDescription(
+                    "If enemy scav markers should be shown in-raid (generally for debug)",
+                    null,
+                    new ConfigurationManagerAttributes { Browsable = false })));
 
-            // ShowBossMarkersInRaid is now controlled by Fika-DynamicMaps server configuration.
+            ConfigEntries.Add(ShowBossMarkersInRaid = config.Bind(
+                DynamicMarkerTitle,
+                "Show Boss Markers",
+                false,
+                new ConfigDescription(
+                    "If enemy boss markers should be shown in-raid",
+                    null,
+                    new ConfigurationManagerAttributes { Browsable = false })));
 
             ConfigEntries.Add(ShowLockedDoorStatus = config.Bind(
                 DynamicMarkerTitle,
@@ -432,7 +467,14 @@ namespace DynamicMaps.Config
             
             #region Progression
 
-            // RequireMapInInventory is now controlled by Fika-DynamicMaps server configuration.
+            ConfigEntries.Add(RequireMapInInventory = config.Bind(
+                ProgressionTitle,
+                "Require a map in your inventory",
+                false,
+                new ConfigDescription(
+                    "Requires you to have a map in your inventory in order to view the map in raid.",
+                    null,
+                    new ConfigurationManagerAttributes { Browsable = false })));
             
             ConfigEntries.Add(ShowPmcIntelLevel = config.Bind(
                 ProgressionTitle,
