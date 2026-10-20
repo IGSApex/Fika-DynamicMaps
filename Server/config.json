@@ -1,6 +1,8 @@
 {
-    "AllowShowFriendlyPlayerMarkersInRaid": true,
-    "AllowShowEnemyPlayerMarkersInRaid": true,
-    "AllowShowBossMarkersInRaid": true,
-    "AllowShowScavMarkersInRaid": true
+    "RequireMapInInventory": false,
+    "AllowShowFriendlySquadMembers(MustHaveIGSApexFikaEditInstalledForThisToWork)": true,
+    "AllowShowEnemyPlayerMarkersInRaid": false,
+    "AllowShowAIEnemyPlayerMarkersInRaid": false,
+    "AllowShowBossMarkersInRaid": false,
+    "AllowShowScavMarkersInRaid": false
 }
