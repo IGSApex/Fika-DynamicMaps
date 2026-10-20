@@ -940,7 +940,7 @@ namespace DynamicMaps.UI
                 _peekComponent.HideMinimapShortcut = Settings.MiniMapShowOrHide.Value;
             }
 
-            AddRemoveMarkerProvider<PlayerMarkerProvider>(Settings.ShowPlayerMarker.Value);
+            AddRemoveMarkerProvider<PlayerMarkerProvider>(true);
             AddRemoveMarkerProvider<QuestMarkerProvider>(Settings.ShowQuestsInRaid.Value);
             AddRemoveMarkerProvider<LockedDoorMarkerMutator>(Settings.ShowLockedDoorStatus.Value);
             AddRemoveMarkerProvider<BackpackMarkerProvider>(Settings.ShowDroppedBackpackInRaid.Value);
