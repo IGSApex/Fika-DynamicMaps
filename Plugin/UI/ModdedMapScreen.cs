@@ -1006,6 +1006,7 @@ namespace DynamicMaps.UI
                 var provider = GetMarkerProvider<OtherPlayersMarkerProvider>();
                 provider.ShowFriendlyPlayers = ServerConfig.AllowShowFriendlySquadMembers;
                 provider.ShowEnemyPlayers = ServerConfig.AllowShowEnemyPlayerMarkersInRaid;
+                provider.ShowAiPmcs = ServerConfig.AllowShowAIEnemyPlayerMarkersInRaid;
                 provider.ShowScavs = ServerConfig.AllowShowScavMarkersInRaid;
                 provider.ShowBosses = ServerConfig.AllowShowBossMarkersInRaid;
                 
