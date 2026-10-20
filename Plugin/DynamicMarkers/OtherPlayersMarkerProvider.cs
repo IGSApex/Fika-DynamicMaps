@@ -23,6 +23,7 @@ namespace DynamicMaps.DynamicMarkers
         private const string _enemyPlayerCategory = "Enemy Player";
         private const string _enemyPlayerImagePath = _arrowImagePath;
 
+        private const string _aiPmcCategory = "AI PMC";
         private const string _scavCategory = "Scav";
         private const string _scavImagePath = _arrowImagePath;
 
@@ -56,6 +57,8 @@ namespace DynamicMaps.DynamicMarkers
                 HandleSetBoolOption(ref _showEnemyPlayers, value);
             }
         }
+
+        public bool ShowAiPmcs { get; set; } = false;
 
         private bool _showScavs = false;
         public bool ShowScavs
@@ -238,7 +241,7 @@ namespace DynamicMaps.DynamicMarkers
             
             var intelLevel = GameUtils.GetIntelLevel();
             
-            if (player.IsGroupedWithMainPlayer() && Settings.ShowFriendlyIntelLevel.Value <= intelLevel)
+            if (player.IsGroupedWithMainPlayer() && !player.IsAI && Settings.ShowFriendlyIntelLevel.Value <= intelLevel)
             {
                 category = _friendlyPlayerCategory;
                 imagePath = _friendlyPlayerImagePath;
@@ -252,7 +255,7 @@ namespace DynamicMaps.DynamicMarkers
             }
             else if (player.IsPMC() && Settings.ShowPmcIntelLevel.Value <= intelLevel)
             {
-                category = _enemyPlayerCategory;
+                category = player.IsAI ? _aiPmcCategory : _enemyPlayerCategory;
                 imagePath = _enemyPlayerImagePath;
                 color = player.Side == EPlayerSide.Bear
                     ? Settings.PmcBearColor.Value
@@ -307,6 +310,8 @@ namespace DynamicMaps.DynamicMarkers
                     return _showFriendlyPlayers;
                 case _enemyPlayerCategory:
                     return _showEnemyPlayers;
+                case _aiPmcCategory:
+                    return ShowAiPmcs;
                 case _bossCategory:
                     return _showBosses;
                 case _scavCategory:
