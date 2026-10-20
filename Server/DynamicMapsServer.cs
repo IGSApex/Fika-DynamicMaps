@@ -300,7 +300,17 @@ public class DynamicMapsServer(
     
 public class ModConfig
 {
-    public bool AllowShowFriendlyPlayerMarkersInRaid { get; set; }
+    public bool RequireMapInInventory { get; set; } = false;
+
+    [System.Text.Json.Serialization.JsonPropertyName("AllowShowFriendlySquadMembers(MustHaveIGSApexFikaEditInstalledForThisToWork)")]
+    public bool AllowShowFriendlySquadMembers { get; set; } = true;
+
+    public bool AllowShowEnemyPlayerMarkersInRaid { get; set; } = false;
+    public bool AllowShowAIEnemyPlayerMarkersInRaid { get; set; } = false;
+    public bool AllowShowBossMarkersInRaid { get; set; } = false;
+    public bool AllowShowScavMarkersInRaid { get; set; } = false;
+}
+
     public bool AllowShowEnemyPlayerMarkersInRaid { get; set; }
     public bool AllowShowBossMarkersInRaid { get; set; }
     public bool AllowShowScavMarkersInRaid { get; set; }
