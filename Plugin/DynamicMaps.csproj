@@ -123,7 +123,7 @@
     <ItemGroup>
       <ClientOutput Include="$(TargetPath)" />
       <Resources Include="$(MSBuildProjectDirectory)\Resources\**\*.*" />
-      <ServerDll Include="$(MSBuildProjectDirectory)\..\Server\bin\Release\**\mpstark-dynamicmaps.dll" />
+      <ServerDll Include="$(MSBuildProjectDirectory)\..\Server\bin\Release\**\Fika-DynamicMaps.dll" />
       <ServerConfig Include="$(MSBuildProjectDirectory)\..\Server\config.json" />
     </ItemGroup>
     <Error Condition="'@(ServerDll)' == ''" Text="Server DLL not found. Build Server/mpstark-dynamicmaps.csproj -c Release first." />
