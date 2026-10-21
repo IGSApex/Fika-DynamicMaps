@@ -1,0 +1,5 @@
+Directory.Build.local.props
+**/bin/
+**/obj/
+Plugin/release/
+Plugin/Version.cs
