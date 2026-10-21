@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <!-- Copy to Directory.Build.local.props and set once to your SPT 4.1.6 installation. -->
-    <TarkovDir>G:\Games\SPT\</TarkovDir>
+    <!-- Copy to Directory.Build.local.props and set once to the installation containing your required EFT/SPT client DLLs. -->
+    <TarkovDir>H:\Battlestate Games\Escape From Tarkov\</TarkovDir>
   </PropertyGroup>
 </Project>
