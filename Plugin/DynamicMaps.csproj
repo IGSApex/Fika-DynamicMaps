@@ -114,26 +114,27 @@
     <WriteLinesToFile File="@(VersionCs)" Lines="namespace DynamicMaps{public static class BuildInfo {public const string Version = &quot;$(Version)&quot;%3B}}" />
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <ClientDeployDir>$(TarkovDir)BepInEx\plugins\Fika-DynamicMaps\</ClientDeployDir>
+      <ServerDeployDir>$(TarkovDir)SPT_Runtime\user\mods\fika-dynamicmaps\</ServerDeployDir>
+      <ReleaseRoot>$(MSBuildProjectDirectory)\release\DynamicMaps\</ReleaseRoot>
+    </PropertyGroup>
     <ItemGroup>
-      <ServerComponents Include="$(MSBuildProjectDirectory)/../Server/bin/Release/**/mpstark-dynamicmaps.dll" />
-      <OutputDLL Include="$(ProjectDir)$(OutDir)$(TargetName).dll" />
-      <License Include="$(MSBuildProjectDirectory)\..\LICENSE" Condition="Exists('$(MSBuildProjectDirectory)\..\LICENSE')" />
-      <Resources Include="$(ProjectDir)Resources\**\*.*" />
-      <ManagedDlls Include="$(ProjectDir)../EscapeFromTarkov_Data\**\*.*" />
+      <ClientOutput Include="$(TargetPath)" />
+      <Resources Include="$(MSBuildProjectDirectory)\Resources\**\*.*" />
+      <ServerDll Include="$(MSBuildProjectDirectory)\..\Server\bin\Release\**\mpstark-dynamicmaps.dll" />
+      <ServerConfig Include="$(MSBuildProjectDirectory)\..\Server\config.json" />
     </ItemGroup>
-
-    <!-- Copies the output and resources to tarkov game folder -->
-    <Copy SourceFiles="@(OutputDLL);@(Resources);@(License)" DestinationFolder="$(TarkovDir)BepInEx\plugins\Fika-DynamicMaps\%(RecursiveDir)" />
-    <Copy SourceFiles="@(ManagedDlls)" DestinationFolder="$(TarkovDir)\%(RecursiveDir)" />
-    <Copy SourceFiles="@(ServerComponents)" DestinationFolder="$(TarkovDir)SPT_Runtime\user\mods\Fika-DynamicMaps\%(RecursiveDir)" />
-
-    <!-- Creates a release zip file -->
-    <RemoveDir Directories="$(ProjectDir)release" />
-    <Copy SourceFiles="@(OutputDLL);@(Resources);@(License)" DestinationFolder="$(ProjectDir)release\DynamicMaps\BepInEx\plugins\Fika-DynamicMaps\%(RecursiveDir)" />
-    <Copy SourceFiles="@(ManagedDlls)" DestinationFolder="$(ProjectDir)release\DynamicMaps\EscapeFromTarkov_Data\%(RecursiveDir)" />
-    <Copy SourceFiles="@(ServerComponents)" DestinationFolder="$(ProjectDir)release\DynamicMaps\SPT_Runtime\user\mods\Fika-DynamicMaps\%(RecursiveDir)" />
-    <ZipDirectory SourceDirectory="$(ProjectDir)release\DynamicMaps\" DestinationFile="$(ProjectDir)release\DynamicMaps-$(Version).zip" />
+    <Error Condition="'@(ServerDll)' == ''" Text="Server DLL not found. Build Server/mpstark-dynamicmaps.csproj -c Release first." />
+    <Copy SourceFiles="@(ClientOutput)" DestinationFolder="$(ClientDeployDir)" />
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(ClientDeployDir)%(RecursiveDir)" Condition="'@(Resources)' != ''" />
+    <Copy SourceFiles="@(ServerDll);@(ServerConfig)" DestinationFolder="$(ServerDeployDir)" />
+    <RemoveDir Directories="$(ReleaseRoot)" />
+    <Copy SourceFiles="@(ClientOutput)" DestinationFolder="$(ReleaseRoot)BepInEx\plugins\Fika-DynamicMaps\" />
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(ReleaseRoot)BepInEx\plugins\Fika-DynamicMaps\%(RecursiveDir)" Condition="'@(Resources)' != ''" />
+    <Copy SourceFiles="@(ServerDll);@(ServerConfig)" DestinationFolder="$(ReleaseRoot)SPT_Runtime\user\mods\fika-dynamicmaps\" />
+    <ZipDirectory SourceDirectory="$(ReleaseRoot)" DestinationFile="$(MSBuildProjectDirectory)\release\DynamicMaps-$(Version).zip" Overwrite="true" />
   </Target>
 
 </Project>
