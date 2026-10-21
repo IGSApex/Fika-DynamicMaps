@@ -58,7 +58,12 @@ namespace DynamicMaps.DynamicMarkers
             }
         }
 
-        public bool ShowAiPmcs { get; set; } = false;
+        private bool _showAiPmcs = false;
+        public bool ShowAiPmcs
+        {
+            get => _showAiPmcs;
+            set => HandleSetBoolOption(ref _showAiPmcs, value);
+        }
 
         private bool _showScavs = false;
         public bool ShowScavs
