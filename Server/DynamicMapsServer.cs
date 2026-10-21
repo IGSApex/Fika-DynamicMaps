@@ -310,8 +310,3 @@ public class ModConfig
     public bool AllowShowBossMarkersInRaid { get; set; } = false;
     public bool AllowShowScavMarkersInRaid { get; set; } = false;
 }
-
-    public bool AllowShowEnemyPlayerMarkersInRaid { get; set; }
-    public bool AllowShowBossMarkersInRaid { get; set; }
-    public bool AllowShowScavMarkersInRaid { get; set; }
-}
