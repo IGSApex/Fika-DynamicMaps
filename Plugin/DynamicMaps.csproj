@@ -8,18 +8,23 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
+  <!-- Local configuration is optional and intentionally not committed. -->
+  <Import Project="../Directory.Build.local.props" Condition="Exists('../Directory.Build.local.props')" />
   <PropertyGroup>
+    <TarkovDir Condition="'$(TarkovDir)' == '' and '$(SPT_DIR)' != ''">$(SPT_DIR)</TarkovDir>
+    <TarkovDir Condition="'$(TarkovDir)' == '' and '$(SPT_PATH)' != ''">$(SPT_PATH)</TarkovDir>
     <TarkovDir Condition="'$(TarkovDir)' == '' and Exists('$(MSBuildProjectDirectory)/../../EscapeFromTarkov_Data/Managed/Assembly-CSharp.dll')">$(MSBuildProjectDirectory)/../../</TarkovDir>
     <TarkovDir Condition="'$(TarkovDir)' == '' and Exists('$(MSBuildProjectDirectory)/../../../EscapeFromTarkov_Data/Managed/Assembly-CSharp.dll')">$(MSBuildProjectDirectory)/../../../</TarkovDir>
     <TarkovDir Condition="'$(TarkovDir)' == '' and Exists('$(MSBuildProjectDirectory)/../EscapeFromTarkov_Data/Managed/Assembly-CSharp.dll')">$(MSBuildProjectDirectory)/../</TarkovDir>
+    <TarkovDir Condition="'$(TarkovDir)' != '' and !HasTrailingSlash('$(TarkovDir)')">$(TarkovDir)\</TarkovDir>
     <TarkovPluginsSPTDir>$(TarkovDir)BepInEx\plugins\spt\</TarkovPluginsSPTDir>
     <TarkovManagedDir>$(TarkovDir)EscapeFromTarkov_Data\Managed\</TarkovManagedDir>
     <TarkovBepInExCoreDir>$(TarkovDir)BepInEx\core\</TarkovBepInExCoreDir>
   </PropertyGroup>
 
   <Target Name="ValidateTarkovReferences" BeforeTargets="ResolveReferences">
-    <Error Condition="'$(TarkovDir)' == ''" Text="SPT 4.1.6 game assemblies were not found. Set TarkovDir via an environment variable or MSBuild property, or place the source inside your SPT installation." />
-    <Error Condition="!Exists('$(TarkovDir)EscapeFromTarkov_Data/Managed/Assembly-CSharp.dll')" Text="Invalid TarkovDir: $(TarkovDir). Assembly-CSharp.dll was not found." />
+    <Error Condition="'$(TarkovDir)' == ''" Text="EFT game DLLs are required to compile the client. Set SPT_DIR once, or create Directory.Build.local.props (see example). The SPT server NuGet packages do not include proprietary EFT assemblies." />
+    <Error Condition="'$(TarkovDir)' != '' and !Exists('$(TarkovManagedDir)Assembly-CSharp.dll')" Text="Assembly-CSharp.dll missing at $(TarkovManagedDir). Check SPT_DIR or Directory.Build.local.props." />
   </Target>
 
   <ItemGroup>
